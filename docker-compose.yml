@@ -1,0 +1,29 @@
+version: '3'
+services:
+  web:
+    image: punyasm20/nginx
+    ports:
+      - '8001:8001'
+      - '8002:8002'
+    volumes:
+      - ".:/etc/nginx/conf.d"
+    links:
+      - server1
+      - server2
+  server1:
+    image: punyasm20/tomcat8.5openjdk8
+    build:
+      context: .
+      dockerfile: Dockerfile1
+      container_name: webapp1
+      ports:
+        - '7001:8080'
+  server2:
+    image: punyasm20/tomcat8.5openjdk8
+    build:
+      context: .
+      dockerfile: Dockerfile2
+      container_name: webapp2
+      ports:
+        - '7002:8080'
+
